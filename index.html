@@ -935,7 +935,7 @@ function renderPlanner(){const wi=currentWeekIndex(),weekText=wi===0?'Semana 1':
 function actualPriceFor(name){const wk=weekKey();return Number(state.actualPrices?.[wk]?.[name]||0)}
 function setActualPrice(name,value){const wk=weekKey();state.actualPrices[wk]=state.actualPrices[wk]||{};if(value===null||value===''||!Number.isFinite(Number(value))||Number(value)<0)delete state.actualPrices[wk][name];else state.actualPrices[wk][name]=Number(value);save()}
 function selectedShoppingKey(days){return [...days].sort((a,b)=>DAYS.indexOf(a)-DAYS.indexOf(b)).join(',')}
-function shoppingDayFraction(key,index){const todayKey=DAYS[(new Date().getDay()+6)%7];return key===todayKey?1:mealConsumption(key,index)}
+function shoppingDayFraction(key,index){return mealConsumption(key,index)}
 function ingredientDemandForShopping(name,unit,daysSelected){
   let total=0;
   daysSelected.forEach(key=>currentRecipesFor(key).forEach((rid,i)=>{const f=shoppingDayFraction(key,i);recipes[rid]?.ings?.forEach(([n,q,u])=>{if(n===name&&u===unit)total+=Number(q)*f})}));
